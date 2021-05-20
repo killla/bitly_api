@@ -53,14 +53,13 @@ def check_bitlink(token, link):
     return response.ok
 
 
-
 if __name__ == "__main__":
     user_input = input('Введите ссылку: ').strip()
     is_bitlink = False
 
     try:
         is_bitlink = check_bitlink(BITLY_TOKEN, user_input)
-    except requests.exceptions.HTTPError as error:
+    except requests.exceptions.HTTPError:
         is_bitlink = False
 
     if is_bitlink:

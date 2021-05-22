@@ -5,14 +5,12 @@ from urllib.parse import urlparse
 from dotenv import load_dotenv
 
 
-load_dotenv()
-url_template = 'https://api-ssl.bitly.com/v4{}'
-BITLY_TOKEN = os.getenv("TOKEN")
+URL_TEMPLATE = 'https://api-ssl.bitly.com/v4{}'
 
 
 def create_bitlink(token, link):
     command = '/bitlinks'
-    url = url_template.format(command)
+    url = URL_TEMPLATE.format(command)
     payload = {
         'long_url': link,
     }
@@ -29,7 +27,7 @@ def create_bitlink(token, link):
 def count_clicks(token, link):
     parsed_link = urlparse(link)
     command = f'/bitlinks/{parsed_link.netloc}{parsed_link.path}/clicks/summary'
-    url = url_template.format(command)
+    url = URL_TEMPLATE.format(command)
     headers = {
         'Authorization': f'Bearer {token}'
     }
@@ -47,13 +45,15 @@ def check_bitlink(token, link):
         'Authorization': f'Bearer {token}'
     }
 
-    url = url_template.format(command)
+    url = URL_TEMPLATE.format(command)
     response = requests.get(url, headers=headers)
-    response.raise_for_status()
     return response.ok
 
 
 if __name__ == "__main__":
+    load_dotenv()
+    BITLY_TOKEN = os.getenv('BITLY_TOKEN')
+
     user_input = input('Введите ссылку: ').strip()
     is_bitlink = False
 
@@ -62,15 +62,12 @@ if __name__ == "__main__":
     except requests.exceptions.HTTPError:
         is_bitlink = False
 
-    if is_bitlink:
-        try:
-            clicks_count = count_clicks(BITLY_TOKEN, user_input)
-            print('Количество кликов: ', clicks_count)
-        except requests.exceptions.HTTPError:
-            print('Неверная ссылка')
-    else:
-        try:
-            bitlink = create_bitlink(BITLY_TOKEN, user_input)
-            print('Битлинк: ', bitlink)
-        except requests.exceptions.HTTPError:
-            print('Неверная ссылка')
+    try:
+        if is_bitlink:
+                clicks_count = count_clicks(BITLY_TOKEN, user_input)
+                print('Количество кликов: ', clicks_count)
+        else:
+                bitlink = create_bitlink(BITLY_TOKEN, user_input)
+                print('Битлинк: ', bitlink)
+    except requests.exceptions.HTTPError:
+        print('Неверная ссылка')

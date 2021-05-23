@@ -50,7 +50,7 @@ def check_bitlink(token, link):
     return response.ok
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     load_dotenv()
     BITLY_TOKEN = os.getenv('BITLY_TOKEN')
 

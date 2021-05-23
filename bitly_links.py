@@ -55,12 +55,8 @@ if __name__ == '__main__':
     bitly_token = os.getenv('BITLY_TOKEN')
 
     user_input = input('Введите ссылку: ').strip()
-    is_bitlink = False
 
-    try:
-        is_bitlink = check_bitlink(bitly_token, user_input)
-    except requests.exceptions.HTTPError:
-        is_bitlink = False
+    is_bitlink = check_bitlink(bitly_token, user_input)
 
     try:
         if is_bitlink:

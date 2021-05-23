@@ -52,22 +52,22 @@ def check_bitlink(token, link):
 
 if __name__ == '__main__':
     load_dotenv()
-    BITLY_TOKEN = os.getenv('BITLY_TOKEN')
+    bitly_token = os.getenv('BITLY_TOKEN')
 
     user_input = input('Введите ссылку: ').strip()
     is_bitlink = False
 
     try:
-        is_bitlink = check_bitlink(BITLY_TOKEN, user_input)
+        is_bitlink = check_bitlink(bitly_token, user_input)
     except requests.exceptions.HTTPError:
         is_bitlink = False
 
     try:
         if is_bitlink:
-            clicks_count = count_clicks(BITLY_TOKEN, user_input)
+            clicks_count = count_clicks(bitly_token, user_input)
             print('Количество кликов: ', clicks_count)
         else:
-            bitlink = create_bitlink(BITLY_TOKEN, user_input)
+            bitlink = create_bitlink(bitly_token, user_input)
             print('Битлинк: ', bitlink)
     except requests.exceptions.HTTPError:
         print('Неверная ссылка')

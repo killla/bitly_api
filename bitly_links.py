@@ -64,10 +64,10 @@ if __name__ == "__main__":
 
     try:
         if is_bitlink:
-                clicks_count = count_clicks(BITLY_TOKEN, user_input)
-                print('Количество кликов: ', clicks_count)
+            clicks_count = count_clicks(BITLY_TOKEN, user_input)
+            print('Количество кликов: ', clicks_count)
         else:
-                bitlink = create_bitlink(BITLY_TOKEN, user_input)
-                print('Битлинк: ', bitlink)
+            bitlink = create_bitlink(BITLY_TOKEN, user_input)
+            print('Битлинк: ', bitlink)
     except requests.exceptions.HTTPError:
         print('Неверная ссылка')

@@ -1,5 +1,6 @@
 import os
 import requests
+import argparse
 from urllib.parse import urlparse
 
 from dotenv import load_dotenv
@@ -54,16 +55,22 @@ if __name__ == '__main__':
     load_dotenv()
     bitly_token = os.getenv('BITLY_TOKEN')
 
-    user_input = input('Введите ссылку: ').strip()
+    parser = argparse.ArgumentParser(
+        description='Подсчет переходов по ссылке'
+    )
+    parser.add_argument('link', help='bitlink ссылка')
+    args = parser.parse_args()
+    print(args)
+    users_link = args.link
 
-    is_bitlink = check_bitlink(bitly_token, user_input)
+    is_bitlink = check_bitlink(bitly_token, users_link)
 
     try:
         if is_bitlink:
-            clicks_count = count_clicks(bitly_token, user_input)
+            clicks_count = count_clicks(bitly_token, users_link)
             print('Количество кликов: ', clicks_count)
         else:
-            bitlink = create_bitlink(bitly_token, user_input)
+            bitlink = create_bitlink(bitly_token, users_link)
             print('Битлинк: ', bitlink)
     except requests.exceptions.HTTPError:
         print('Неверная ссылка')

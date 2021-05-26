@@ -56,9 +56,9 @@ if __name__ == '__main__':
     bitly_token = os.getenv('BITLY_TOKEN')
 
     parser = argparse.ArgumentParser(
-        description='Подсчет переходов по ссылке'
+        description='Подсчет переходов по ссылке. При передаче ссылке выдаст bitlink. При передаче bitlink выдаст количество переходов.'
     )
-    parser.add_argument('link', help='bitlink ссылка')
+    parser.add_argument('link', help='ссылка или bitlink')
     args = parser.parse_args()
     print(args)
     users_link = args.link

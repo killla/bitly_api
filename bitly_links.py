@@ -60,16 +60,16 @@ if __name__ == '__main__':
     )
     parser.add_argument('link', help='ссылка или bitlink')
     args = parser.parse_args()
-    users_link = args.link
+    user_link = args.link
 
-    is_bitlink = check_bitlink(bitly_token, users_link)
+    is_bitlink = check_bitlink(bitly_token, user_link)
 
     try:
         if is_bitlink:
-            clicks_count = count_clicks(bitly_token, users_link)
+            clicks_count = count_clicks(bitly_token, user_link)
             print('Количество кликов: ', clicks_count)
         else:
-            bitlink = create_bitlink(bitly_token, users_link)
+            bitlink = create_bitlink(bitly_token, user_link)
             print('Битлинк: ', bitlink)
     except requests.exceptions.HTTPError:
         print('Неверная ссылка')

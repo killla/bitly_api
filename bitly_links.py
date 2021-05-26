@@ -60,7 +60,6 @@ if __name__ == '__main__':
     )
     parser.add_argument('link', help='ссылка или bitlink')
     args = parser.parse_args()
-    print(args)
     users_link = args.link
 
     is_bitlink = check_bitlink(bitly_token, users_link)
